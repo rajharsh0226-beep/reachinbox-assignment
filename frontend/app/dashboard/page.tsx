@@ -1,4 +1,10 @@
+"use client";
+
+import { useState } from "react";
+
 export default function DashboardPage() {
+  const [activeTab, setActiveTab] = useState<"scheduled" | "sent">("scheduled");
+
   return (
     <div
       style={{
@@ -44,18 +50,22 @@ export default function DashboardPage() {
         {/* Menu */}
         <div style={{ fontSize: 14 }}>
           <div
+            onClick={() => setActiveTab("scheduled")}
             style={{
               marginBottom: 12,
-              fontWeight: "bold",
-              color: "#16a34a",
+              fontWeight: activeTab === "scheduled" ? "bold" : "normal",
+              color: activeTab === "scheduled" ? "#16a34a" : "#374151",
               cursor: "pointer",
             }}
           >
             Scheduled
           </div>
+
           <div
+            onClick={() => setActiveTab("sent")}
             style={{
-              color: "#374151",
+              fontWeight: activeTab === "sent" ? "bold" : "normal",
+              color: activeTab === "sent" ? "#16a34a" : "#374151",
               cursor: "pointer",
             }}
           >
@@ -72,7 +82,11 @@ export default function DashboardPage() {
           boxSizing: "border-box",
         }}
       >
-        <h2 style={{ marginBottom: 20 }}>Scheduled Emails</h2>
+        <h2 style={{ marginBottom: 20 }}>
+          {activeTab === "scheduled"
+            ? "Scheduled Emails"
+            : "Sent Emails"}
+        </h2>
 
         {/* Table */}
         <div
@@ -101,10 +115,28 @@ export default function DashboardPage() {
             <tbody>
               <tr>
                 <td style={tdStyle}>test@email.com</td>
-                <td style={tdStyle}>Welcome</td>
-                <td style={tdStyle}>Tomorrow 10:00</td>
-                <td style={{ ...tdStyle, color: "#16a34a" }}>
-                  Scheduled
+                <td style={tdStyle}>
+                  {activeTab === "scheduled"
+                    ? "Welcome"
+                    : "Project Update"}
+                </td>
+                <td style={tdStyle}>
+                  {activeTab === "scheduled"
+                    ? "Tomorrow 10:00"
+                    : "Today 9:30 AM"}
+                </td>
+                <td
+                  style={{
+                    ...tdStyle,
+                    color:
+                      activeTab === "scheduled"
+                        ? "#16a34a"
+                        : "#2563eb",
+                  }}
+                >
+                  {activeTab === "scheduled"
+                    ? "Scheduled"
+                    : "Sent"}
                 </td>
               </tr>
             </tbody>
@@ -114,6 +146,8 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+/* ---------- Styles ---------- */
 
 const thStyle = {
   textAlign: "left" as const,
