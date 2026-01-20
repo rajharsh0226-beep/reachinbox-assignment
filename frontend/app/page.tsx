@@ -1,34 +1,59 @@
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-md w-[380px]">
-        <h1 className="text-2xl font-semibold text-center mb-6">Login</h1>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: 360,
+          background: "#fff",
+          padding: 24,
+          borderRadius: 8,
+          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        }}
+      >
+        <h2 style={{ textAlign: "center", marginBottom: 20 }}>Login</h2>
 
-        <button className="w-full flex items-center justify-center gap-2 border rounded-md py-2 mb-4 hover:bg-gray-50">
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            className="w-5 h-5"
-          />
+        <button
+          style={{
+            width: "100%",
+            padding: 10,
+            marginBottom: 16,
+            cursor: "pointer",
+          }}
+        >
           Login with Google
         </button>
 
-        <div className="text-center text-sm text-gray-400 mb-4">
+        <p style={{ textAlign: "center", fontSize: 12, marginBottom: 12 }}>
           or sign in through email
-        </div>
+        </p>
 
         <input
-          type="email"
           placeholder="Email ID"
-          className="w-full border rounded-md px-3 py-2 mb-3"
+          style={{ width: "100%", padding: 8, marginBottom: 10 }}
         />
-
         <input
-          type="password"
           placeholder="Password"
-          className="w-full border rounded-md px-3 py-2 mb-5"
+          type="password"
+          style={{ width: "100%", padding: 8, marginBottom: 16 }}
         />
 
-        <button className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700">
+        <button
+          style={{
+            width: "100%",
+            padding: 10,
+            background: "#22c55e",
+            color: "#fff",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
           Login
         </button>
       </div>
