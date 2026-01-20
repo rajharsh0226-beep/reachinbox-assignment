@@ -8,15 +8,6 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  callbacks: {
-    async session({ session, token }) {
-      if (session.user) {
-        // safe check for TypeScript
-        (session.user as any).id = token.sub;
-      }
-      return session;
-    },
-  },
 });
 
 export { handler as GET, handler as POST };
