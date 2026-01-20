@@ -1,9 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function DashboardPage() {
+  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<"scheduled" | "sent">("scheduled");
+  const [emails, setEmails] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!session?.user?.email) return;
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/emails/${session.user.email}`
+    )
+      .then((res) => res.json())
+      .then((data) => setEmails(data));
+  }, [session]);
 
   return (
     <div
@@ -25,27 +38,60 @@ export default function DashboardPage() {
       >
         {/* User */}
         <div style={{ marginBottom: 30 }}>
-          <div style={{ fontWeight: "bold" }}>User Name</div>
-          <div style={{ fontSize: 13, color: "#6b7280" }}>
-            user@email.com
+          {session?.user?.image && (
+            <img
+              src={session.user.image}
+              alt="avatar"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                marginBottom: 8,
+              }}
+            />
+          )}
+
+          <div style={{ fontWeight: "bold" }}>
+            {session?.user?.name}
           </div>
+
+          <div style={{ fontSize: 13, color: "#6b7280" }}>
+            {session?.user?.email}
+          </div>
+
+          <button
+            onClick={() => signOut()}
+            style={{
+              marginTop: 10,
+              fontSize: 12,
+              cursor: "pointer",
+              background: "none",
+              border: "none",
+              color: "#ef4444",
+              padding: 0,
+            }}
+          >
+            Logout
+          </button>
         </div>
 
         {/* Compose */}
-        <button
-          style={{
-            width: "100%",
-            padding: "10px 0",
-            background: "#22c55e",
-            color: "#ffffff",
-            border: "none",
-            borderRadius: 6,
-            cursor: "pointer",
-            marginBottom: 30,
-          }}
-        >
-          Compose
-        </button>
+        <a href="/compose">
+          <button
+            style={{
+              width: "100%",
+              padding: "10px 0",
+              background: "#22c55e",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: 6,
+              cursor: "pointer",
+              marginBottom: 30,
+            }}
+          >
+            Compose
+          </button>
+        </a>
 
         {/* Menu */}
         <div style={{ fontSize: 14 }}>
@@ -113,32 +159,47 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td style={tdStyle}>test@email.com</td>
-                <td style={tdStyle}>
-                  {activeTab === "scheduled"
-                    ? "Welcome"
-                    : "Project Update"}
-                </td>
-                <td style={tdStyle}>
-                  {activeTab === "scheduled"
-                    ? "Tomorrow 10:00"
-                    : "Today 9:30 AM"}
-                </td>
-                <td
-                  style={{
-                    ...tdStyle,
-                    color:
-                      activeTab === "scheduled"
-                        ? "#16a34a"
-                        : "#2563eb",
-                  }}
-                >
-                  {activeTab === "scheduled"
-                    ? "Scheduled"
-                    : "Sent"}
-                </td>
-              </tr>
+              {emails
+                .filter((e) =>
+                  activeTab === "scheduled"
+                    ? e.status === "scheduled"
+                    : e.status === "sent"
+                )
+                .map((email) => (
+                  <tr key={email.id}>
+                    <td style={tdStyle}>{email.toEmail}</td>
+                    <td style={tdStyle}>{email.subject}</td>
+                    <td style={tdStyle}>
+                      {new Date(email.scheduledAt).toLocaleString()}
+                    </td>
+                    <td
+                      style={{
+                        ...tdStyle,
+                        color:
+                          email.status === "scheduled"
+                            ? "#16a34a"
+                            : "#2563eb",
+                      }}
+                    >
+                      {email.status}
+                    </td>
+                  </tr>
+                ))}
+
+              {emails.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={4}
+                    style={{
+                      padding: 20,
+                      textAlign: "center",
+                      color: "#6b7280",
+                    }}
+                  >
+                    No emails found
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

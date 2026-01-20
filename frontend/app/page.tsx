@@ -1,18 +1,8 @@
 "use client";
 
-export default function LoginPage() {
-  const testBackend = async () => {
-    try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BACKEND_URL as string
-      );
-      const text = await res.text();
-      alert(text);
-    } catch (err) {
-      alert("Backend not reachable");
-    }
-  };
+import { signIn } from "next-auth/react";
 
+export default function LoginPage() {
   return (
     <div
       style={{
@@ -32,49 +22,34 @@ export default function LoginPage() {
           boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: 20 }}>Login</h2>
+        <h2 style={{ textAlign: "center", marginBottom: 24 }}>
+          Login to ReachInbox
+        </h2>
 
-        {/* Google Login (UI only for now) */}
+        {/* Google Login */}
         <button
+          onClick={() => signIn("google")}
           style={{
             width: "100%",
             padding: 10,
             marginBottom: 16,
             cursor: "pointer",
+            border: "1px solid #e5e7eb",
+            background: "#fff",
           }}
         >
           Login with Google
         </button>
 
-        <p style={{ textAlign: "center", fontSize: 12, marginBottom: 12 }}>
-          or sign in through email
-        </p>
-
-        <input
-          placeholder="Email ID"
-          style={{ width: "100%", padding: 8, marginBottom: 10 }}
-        />
-
-        <input
-          placeholder="Password"
-          type="password"
-          style={{ width: "100%", padding: 8, marginBottom: 16 }}
-        />
-
-        {/* TEMP: Backend connection test */}
-        <button
-          onClick={testBackend}
+        <p
           style={{
-            width: "100%",
-            padding: 10,
-            background: "#22c55e",
-            color: "#fff",
-            border: "none",
-            cursor: "pointer",
+            textAlign: "center",
+            fontSize: 12,
+            color: "#6b7280",
           }}
         >
-          Test Backend Connection
-        </button>
+          Secure login using your Google account
+        </p>
       </div>
     </div>
   );

@@ -1,0 +1,4 @@
+GOOGLE_CLIENT_ID=xxxx
+GOOGLE_CLIENT_SECRET=xxxx
+NEXTAUTH_SECRET=anything
+NEXTAUTH_URL=https://your-vercel-url
