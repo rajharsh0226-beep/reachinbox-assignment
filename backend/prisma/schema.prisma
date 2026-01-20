@@ -9,10 +9,11 @@ datasource db {
 
 model EmailJob {
   id          String   @id @default(uuid())
+  userEmail   String   // logged-in user's email
   toEmail     String
   subject     String
   body        String
-  status      String
+  status      String   @default("scheduled") // scheduled | sent
   scheduledAt DateTime
   createdAt   DateTime @default(now())
 }
