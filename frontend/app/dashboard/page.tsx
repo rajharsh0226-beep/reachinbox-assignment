@@ -1,53 +1,75 @@
 export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div style={{ display: "flex", minHeight: "100vh" }}>
       {/* Sidebar */}
-      <div className="w-64 bg-white border-r p-4">
-        <div className="flex items-center gap-3 mb-8">
-          <img
-            src="https://i.pravatar.cc/40"
-            className="w-10 h-10 rounded-full"
-          />
-          <div>
-            <p className="font-semibold">User Name</p>
-            <p className="text-sm text-gray-500">user@email.com</p>
-          </div>
-        </div>
+      <div
+        style={{
+          width: 240,
+          background: "white",
+          padding: 16,
+          borderRight: "1px solid #ddd",
+        }}
+      >
+        <p style={{ fontWeight: "bold" }}>User Name</p>
+        <p style={{ fontSize: 12, color: "#666" }}>user@email.com</p>
 
-        <button className="w-full bg-green-600 text-white py-2 rounded-md mb-6">
+        <button
+          style={{
+            width: "100%",
+            marginTop: 20,
+            padding: 10,
+            background: "#16a34a",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
           Compose
         </button>
 
-        <div className="space-y-2 text-gray-700">
-          <div className="font-medium text-green-600">Scheduled</div>
-          <div className="hover:text-green-600 cursor-pointer">Sent</div>
+        <div style={{ marginTop: 30 }}>
+          <p style={{ fontWeight: "bold" }}>Scheduled</p>
+          <p style={{ color: "#666", marginTop: 8 }}>Sent</p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        <h1 className="text-2xl font-semibold mb-6">Scheduled Emails</h1>
+      {/* Content */}
+      <div style={{ flex: 1, padding: 24 }}>
+        <h2>Scheduled Emails</h2>
 
-        <div className="bg-white rounded-md shadow">
-          <table className="w-full text-left">
-            <thead className="border-b">
-              <tr>
-                <th className="p-3">To</th>
-                <th className="p-3">Subject</th>
-                <th className="p-3">Scheduled Time</th>
-                <th className="p-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b">
-                <td className="p-3">test@email.com</td>
-                <td className="p-3">Welcome Email</td>
-                <td className="p-3">Tomorrow 10:00 AM</td>
-                <td className="p-3 text-yellow-600 font-medium">Scheduled</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table
+          style={{
+            width: "100%",
+            marginTop: 20,
+            borderCollapse: "collapse",
+            background: "white",
+          }}
+        >
+          <thead>
+            <tr>
+              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
+                To
+              </th>
+              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
+                Subject
+              </th>
+              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
+                Time
+              </th>
+              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: 10 }}>test@email.com</td>
+              <td style={{ padding: 10 }}>Welcome</td>
+              <td style={{ padding: 10 }}>Tomorrow 10:00</td>
+              <td style={{ padding: 10 }}>Scheduled</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

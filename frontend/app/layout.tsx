@@ -1,10 +1,3 @@
-import "./globals.css";
-
-export const metadata = {
-  title: "ReachInbox",
-  description: "Email Scheduler",
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +5,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">{children}</body>
+      <body style={{ margin: 0, fontFamily: "Arial, sans-serif" }}>
+        {children}
+      </body>
     </html>
   );
 }
