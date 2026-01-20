@@ -1,76 +1,128 @@
 export default function DashboardPage() {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar */}
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        background: "#f4f6f8",
+      }}
+    >
+      {/* SIDEBAR */}
       <div
         style={{
-          width: 240,
-          background: "white",
-          padding: 16,
-          borderRight: "1px solid #ddd",
+          width: 260,
+          background: "#ffffff",
+          borderRight: "1px solid #e5e7eb",
+          padding: 20,
+          boxSizing: "border-box",
         }}
       >
-        <p style={{ fontWeight: "bold" }}>User Name</p>
-        <p style={{ fontSize: 12, color: "#666" }}>user@email.com</p>
+        {/* User */}
+        <div style={{ marginBottom: 30 }}>
+          <div style={{ fontWeight: "bold" }}>User Name</div>
+          <div style={{ fontSize: 13, color: "#6b7280" }}>
+            user@email.com
+          </div>
+        </div>
 
+        {/* Compose */}
         <button
           style={{
             width: "100%",
-            marginTop: 20,
-            padding: 10,
-            background: "#16a34a",
-            color: "white",
+            padding: "10px 0",
+            background: "#22c55e",
+            color: "#ffffff",
             border: "none",
+            borderRadius: 6,
             cursor: "pointer",
+            marginBottom: 30,
           }}
         >
           Compose
         </button>
 
-        <div style={{ marginTop: 30 }}>
-          <p style={{ fontWeight: "bold" }}>Scheduled</p>
-          <p style={{ color: "#666", marginTop: 8 }}>Sent</p>
+        {/* Menu */}
+        <div style={{ fontSize: 14 }}>
+          <div
+            style={{
+              marginBottom: 12,
+              fontWeight: "bold",
+              color: "#16a34a",
+              cursor: "pointer",
+            }}
+          >
+            Scheduled
+          </div>
+          <div
+            style={{
+              color: "#374151",
+              cursor: "pointer",
+            }}
+          >
+            Sent
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div style={{ flex: 1, padding: 24 }}>
-        <h2>Scheduled Emails</h2>
+      {/* MAIN CONTENT */}
+      <div
+        style={{
+          flex: 1,
+          padding: 30,
+          boxSizing: "border-box",
+        }}
+      >
+        <h2 style={{ marginBottom: 20 }}>Scheduled Emails</h2>
 
-        <table
+        {/* Table */}
+        <div
           style={{
-            width: "100%",
-            marginTop: 20,
-            borderCollapse: "collapse",
-            background: "white",
+            background: "#ffffff",
+            borderRadius: 6,
+            overflow: "hidden",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
           }}
         >
-          <thead>
-            <tr>
-              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
-                To
-              </th>
-              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
-                Subject
-              </th>
-              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
-                Time
-              </th>
-              <th style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style={{ padding: 10 }}>test@email.com</td>
-              <td style={{ padding: 10 }}>Welcome</td>
-              <td style={{ padding: 10 }}>Tomorrow 10:00</td>
-              <td style={{ padding: 10 }}>Scheduled</td>
-            </tr>
-          </tbody>
-        </table>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              fontSize: 14,
+            }}
+          >
+            <thead style={{ background: "#f9fafb" }}>
+              <tr>
+                <th style={thStyle}>To</th>
+                <th style={thStyle}>Subject</th>
+                <th style={thStyle}>Time</th>
+                <th style={thStyle}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={tdStyle}>test@email.com</td>
+                <td style={tdStyle}>Welcome</td>
+                <td style={tdStyle}>Tomorrow 10:00</td>
+                <td style={{ ...tdStyle, color: "#16a34a" }}>
+                  Scheduled
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 }
+
+const thStyle = {
+  textAlign: "left" as const,
+  padding: "12px 16px",
+  borderBottom: "1px solid #e5e7eb",
+  color: "#6b7280",
+};
+
+const tdStyle = {
+  padding: "12px 16px",
+  borderBottom: "1px solid #e5e7eb",
+};
