@@ -10,7 +10,10 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
-      session.user.id = token.sub;
+      if (session.user) {
+        // safe check for TypeScript
+        (session.user as any).id = token.sub;
+      }
       return session;
     },
   },
